@@ -7,12 +7,15 @@ on:
 
 jobs:
   test:
-    runs-on: ubuntu-22.04
+    runs-on: ${{ matrix.os }}
     strategy:
       matrix:
         ref:
         - develop
         - releases/v0.21
+        os:
+        - ubuntu-22.04
+        - macos-13
     steps:
     - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11
 

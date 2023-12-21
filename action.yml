@@ -33,11 +33,11 @@ runs:
 
   - name: Spack environment variables
     run: |
-      abs_path () {
-        # echo "$(cd $(dirname "$1"); pwd -P)/$(basename "$1")"
-        realpath "$1"
-      }
-      echo "$(abs_path ${{ inputs.path }}/bin)" >> "$GITHUB_PATH"
+      # realpath () {
+      #   # echo "$(cd $(dirname "$1"); pwd -P)/$(basename "$1")"
+      #   realpath "$1"
+      # }
+      echo "$(realpath ${{ inputs.path }}/bin)" >> "$GITHUB_PATH"
       [ "${{ inputs.color }}" = "true" ] && echo "SPACK_COLOR=always" >> "$GITHUB_ENV"
       echo "SPACK_DISABLE_LOCAL_CONFIG=1" >> "$GITHUB_ENV"
     shell: sh
@@ -56,11 +56,11 @@ runs:
       cat > ${{ inputs.path }}/bin/spack-bash <<EOF
       #!/bin/bash
       set -e -o pipefail
-      abs_path () {
-        # echo "$(cd $(dirname "$1"); pwd -P)/$(basename "$1")"
-        realpath "$1"
-      }
-      SPACK_ROOT="$(abs_path ${{ inputs.path }})" . "$(abs_path ${{ inputs.path }})/share/spack/setup-env.sh"
+      # realpath () {
+      #   # echo "$(cd $(dirname "$1"); pwd -P)/$(basename "$1")"
+      #   realpath "$1"
+      # }
+      SPACK_ROOT="$(realpath ${{ inputs.path }})" . "$(realpath ${{ inputs.path }})/share/spack/setup-env.sh"
       . "\$1"
       EOF
       chmod +x ${{ inputs.path }}/bin/spack-bash
@@ -70,11 +70,11 @@ runs:
     run: |
       cat > ${{ inputs.path }}/bin/spack-sh <<EOF
       #!/bin/sh -e
-      abs_path () {
-        # echo "$(cd $(dirname "$1"); pwd -P)/$(basename "$1")"
-        realpath "$1"
-      }
-      SPACK_ROOT="$(abs_path ${{ inputs.path }})" . "$(abs_path ${{ inputs.path }})/share/spack/setup-env.sh"
+      # realpath () {
+      #   # echo "$(cd $(dirname "$1"); pwd -P)/$(basename "$1")"
+      #   realpath "$1"
+      # }
+      SPACK_ROOT="$(realpath ${{ inputs.path }})" . "$(realpath ${{ inputs.path }})/share/spack/setup-env.sh"
       . "\$1"
       EOF
       chmod +x ${{ inputs.path }}/bin/spack-sh
